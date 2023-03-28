@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.validators import MinValueValidator,MaxValueValidator
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Customer(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200,null=True)
     last_name = models.CharField(max_length=200,null=True)
     email = models.CharField(max_length=200,null=True)
@@ -21,13 +23,13 @@ class Entry(models.Model):
     date_created = models.DateTimeField(auto_now_add = True, null=True)
     title = models.CharField(max_length=500,null = True)
     description = models.CharField(max_length=1000,null=True,blank=True)
-    mood = models.PositiveSmallIntegerField(validators=[min_score,max_score])
-    sleep = models.IntegerField(default = 0,validators=[min_score,max_score])
-    screen_time = models.IntegerField(default = 0,validators=[min_score,max_score])
-    exercise = models.IntegerField(default = 0,validators=[min_score,max_score])
-    steps = models.IntegerField(default = 0,validators=[min_score,max_score])
-    relax_time = models.IntegerField(default = 0,validators=[min_score,max_score])
-    water = models.IntegerField(default = 0,validators=[min_score,max_score])
+    mood = models.PositiveSmallIntegerField(validators=[min_score,max_score],null=True)
+    sleep = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
+    screen_time = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
+    exercise = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
+    steps = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
+    relax_time = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
+    water = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
 
     def __str__(self):
         return self.title

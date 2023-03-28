@@ -1,20 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-        <h1>Button Example</h1>
-        <p>Click a button to send a value:</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" name="value" value="1">Button 1</button>
-            <button type="submit" name="value" value="2">Button 2</button>
-            <button type="submit" name="value" value="3">Button 3</button>
-        </form>
+<!doctype html>
+<html class="no-js" lang="">
 
-    </body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static '/css/main.css' %}">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <aside>
+    <nav>
+      <a href="javascript:void(0)" class="highlighted">New entry</a>
+      <hr>
+      <a href="javascript:void(0)">Calendar</a>
+      <a href="javascript:void(0)">Statistics</a>
+      <hr>
+    </nav>
+  </aside>
+  <div class="content">
+    <div class="speech-dialog">Hi! How are you feeling today?</div>
+  </div>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
 </html>

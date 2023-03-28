@@ -18,7 +18,7 @@ def register_user(request):
     context = {'form':form}
     return render(request,'registration/register.html',context)
  
-@login_required(login_url="home")
+#@login_required(login_url="home")
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -34,3 +34,7 @@ def login_user(request):
             messages.success(request,'Username or password is incorrect')
 
     return render(request,'login/login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('loginUser')

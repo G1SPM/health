@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Activity Entry</title>
+</head>
+<body>
+	<h1>Activity Entry Form</h1>
+	<form method="post" action="{% url 'home' %}">
+		{% csrf_token %}
+		<label for="mood">Mood:</label>
+		<button type="submit" name="mood" value="0">0</button>
+		<button type="submit" name="mood" value="1">1</button>
+		<button type="submit" name="mood" value="2">2</button>
+		<button type="submit" name="mood" value="3">3</button>
+		<button type="submit" name="mood" value="4">4</button>
+		<button type="submit" name="mood" value="5">5</button>
+		<button type="submit" name="mood" value="6">6</button>
+		<button type="submit" name="mood" value="7">7</button>
+		<button type="submit" name="mood" value="8">8</button>
+		<button type="submit" name="mood" value="9">9</button>
+		<button type="submit" name="mood" value="10">10</button>
+		<br><br>
+		<label for="sleep">Sleep:</label>
+		<button type="submit" name="sleep" value="0">0</button>
+		<button type="submit" name="sleep" value="1">1</button>
+		<button type="submit" name="sleep" value="2">2</button>
+		<button type="submit" name="sleep" value="3">3</button>
+		<button type="submit" name="sleep" value="4">4</button>
+		<button type="submit" name="sleep" value="5">5</button>
+		<button type="submit" name="sleep" value="6">6</button>
+		<button type="submit" name="sleep" value="7">7</button>
+		<button type="submit" name="sleep" value="8">8</button>
+		<button type="submit" name="sleep" value="9">9</button>
+		<button type="submit" name="sleep" value="10">10</button>
+		<br><br>
+		<!-- Similarly, buttons can be added for other fields -->
+		<input type="submit" value="Submit">
+	</form>
+
+    <span> Hello, {{request.user}} </span>
+    <span><a href="{% url 'logoutUser' %}">Logout</a></span>
+</body>
+</html>
