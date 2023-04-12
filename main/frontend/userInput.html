@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Input</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="content">
+    <img src="img/raccoon/default.png" class="raccoon">
+    <div class="speech-dialog">
+      <span id="input_question">How are you feeling today?</span>
+      <br>
+      <span id="input_buttons_area"></span>
+      <form>
+        <span style="display: none">
+            <input type="text" name="input_type" id="input_type_textbox">
+            <input type="text" name="selection" id="input_selection_textbox">
+        </span>
+        <button type="submit" class="button-standard">Submit</button>
+      </form>
+      <script type="text/javascript">
+
+        let questions_dict = {
+          "mood": "How are you feeling today?",
+          "chill": "How chill do you feel today?",
+          "screentime": "How would you rate your screen time today?",
+          "sleep": "How would you rate your sleep lately?",
+          "steps": "How would you rate your number of steps today?",
+          "exercise": "How much exercise did you have today?",
+          "water": "How much water did you have today?"
+        }
+
+
+        // create the buttons
+        let input_dialog_type = "screentime";
+        // ^ Change this dynamically to change the type of input
+
+
+        let img_directory = "img/" + input_dialog_type + "_icons/";
+        let input_button_count = input_dialog_type === "mood" ? 5 : 3;
+
+        let input_buttons_area = document.getElementById("input_buttons_area");
+
+        let input_currently_selected = 0;
+
+        document.getElementById("input_type_textbox").value = input_dialog_type;
+        document.getElementById("input_question").innerText = questions_dict[input_dialog_type];
+        document.getElementById("input_selection_textbox").value = 0;
+
+        for(let i = 0; i < input_button_count; i++) {
+          let img_path = img_directory + (i) + ".png";
+          let anchor = document.createElement("A");
+          anchor.href = "javascript:button_click_handler("+i+")";
+          anchor.className = "mood-button";
+          anchor.id = "input_anchor_"  + i;
+          let img = document.createElement("IMG");
+          img.src = img_path;
+          anchor.appendChild(img);
+          input_buttons_area.appendChild(anchor);
+        }
+
+        function button_click_handler(index) {
+          document.getElementById("input_selection_textbox").value = index;
+          document.getElementById("input_anchor_"+input_currently_selected).className = "mood-button";
+          document.getElementById("input_anchor_"+index).className = "mood-button mood-button-selected";
+          input_currently_selected = index;
+        }
+      </script>
+    </div>
+  </div>
+</body>
+</html>
