@@ -18,15 +18,15 @@ class Customer(models.Model):
 class Entry(models.Model):
     #set the max and min scores for any entry
     max_score = MaxValueValidator(5)
-    min_score = MinValueValidator(1)
+    min_score = MinValueValidator(0)
 
     
     customer = models.ForeignKey(Customer,null=True,on_delete = models.SET_NULL)
     date_created = models.DateField(auto_now_add = False, null=True, default=datetime.date.today)
     #create all entries
-    title = models.CharField(max_length=500,null = True,default="hello")
+    title = models.CharField(max_length=500,null = True, default="hello")
     description = models.CharField(max_length=1000,null=True,blank=True)
-    mood = models.PositiveSmallIntegerField(validators=[min_score,max_score],null=True)
+    mood = models.PositiveSmallIntegerField(default = 0, validators=[min_score,max_score],null=True)
     sleep = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
     screen_time = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
     exercise = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
@@ -40,7 +40,7 @@ class Entry(models.Model):
     
 class Goal(models.Model):
     max_score = MaxValueValidator(5)
-    min_score = MinValueValidator(1)
+    min_score = MinValueValidator(0)
 
     customer = models.ForeignKey(Customer,null=True,on_delete = models.SET_NULL)
     mood = models.PositiveSmallIntegerField(default = 0, validators=[min_score,max_score],null=True)
@@ -52,4 +52,4 @@ class Goal(models.Model):
     water = models.IntegerField(default = 0,validators=[min_score,max_score],null=True)
 
     def __str__(self):
-        return "hii"
+        return self.customer.first_name
