@@ -1,55 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Goals</title>
-</head>
-<body>
-	<h1>Goals</h1>
-	<form method="post" action="{% url 'goals' %}">
-		{% csrf_token %}
-	  
-		<!-- Mood radio buttons -->
-		<label>
-		  <input type="radio" name="mood" value="1"> 1
-		</label>
-		<label>
-		  <input type="radio" name="mood" value="2"> 2
-		</label>
-		<label>
-		  <input type="radio" name="mood" value="3"> 3
-		</label>
-		<label>
-			<input type="radio" name="mood" value="3"> 4
-		</label>
-		<label>
-			<input type="radio" name="mood" value="5"> 5
-		</label>
-		<!-- Add more radio buttons for other values -->
-	  
-		<br><br>
-	  
-		<!-- Sleep radio buttons -->
-		<label>
-		  <input type="radio" name="sleep" value="1"> 1
-		</label>
-		<label>
-		  <input type="radio" name="sleep" value="2"> 2
-		</label>
-		<label>
-		  <input type="radio" name="sleep" value="3"> 3
-		</label>
-		<label>
-			<input type="radio" name="sleep" value="4"> 4
-		</label>
-		<label>
-			<input type="radio" name="sleep" value="5"> 5
-		</label>
-		<!-- Add more radio buttons for other values -->
-	  
-		<br><br>
-	  
-		<input type="submit" value="Submit">
-	</form>
+<!--
 
 	<form method="post" action = "{%url 'calendar' %}">
 		{% csrf_token %}
@@ -67,5 +16,155 @@
 
     <span> Hello, {{request.user}} </span>
     <span><a href="{% url 'logoutUser' %}">Logout</a></span>
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Select Goals</title>
+	{% load static %}
+	<link type="text/css" href="{% static 'css/goals.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <h2>Select your goal state:</h2>
+	<form method="post" action="{% url 'goals' %}">
+    	<div>
+			{% csrf_token %}
+			<h3>Mood:</h3>
+			<div class="radio-container">
+			  <label>
+				<input type="radio" name="mood" value="1">
+				<img src="{% static 'img/mood_icons/1.png' %}" alt="Mood 1">
+			  </label>
+			  <label>
+				<input type="radio" name="mood" value="2">
+				<img src="{% static 'img/mood_icons/3.png' %}" alt="Mood 2">
+			  </label>
+			  <label>
+				<input type="radio" name="mood" value="3">
+				<img src="{% static 'img/mood_icons/4.png' %}" alt="Mood 3">
+			  </label>
+			</div>
+		  </div>
+		  
+		  <div>
+			<h3>Exercise:</h3>
+			<div class="radio-container">
+			  <label>
+				<input type="radio" name="exercise" value="1">
+				<img src="{% static 'img/exercise_icons/0.png' %}" alt="Exercise 1">
+			  </label>
+			  <label>
+				<input type="radio" name="exercise" value="2">
+				<img src="{% static 'img/exercise_icons/1.png' %}" alt="Exercise 2">
+			  </label>
+			  <label>
+				<input type="radio" name="exercise" value="3">
+				<img src="{% static 'img/exercise_icons/2.png' %}" alt="Exercise 3">
+			  </label>
+			</div>
+		  </div>
+		  
+		  <div>
+			<h3>Chill:</h3>
+			<div class="radio-container">
+			  <label>
+				<input type="radio" name="chill" value="1">
+				<img src="{% static 'img/chill_icons/0.png' %}" alt="Chill 1">
+			  </label>
+			  <label>
+				<input type="radio" name="chill" value="2">
+				<img src="{% static 'img/chill_icons/1.png' %}" alt="Chill 2">
+			  </label>
+			  <label>
+				<input type="radio" name="chill" value="3">
+				<img src="{% static 'img/chill_icons/2.png' %}" alt="Chill 3">
+			  </label>
+			</div>
+		  </div>
+		  
+		  <div>
+			<h3>Steps:</h3>
+			<div class="radio-container">
+			  <label>
+			  <input type="radio" name="steps" value="1">
+			  <img src="{% static 'img/steps_icons/0.png' %}" alt="Steps 1">
+			  </label>
+			  
+			  <label>
+			  <input type="radio" name="steps" value="2">
+			  <img src="{% static 'img/steps_icons/1.png' %}" alt="Steps 2">
+			  </label>
+			  
+			  <label>
+			  <input type="radio" name="steps" value="3">
+			  <img src="{% static 'img/steps_icons/2.png' %}" alt="Steps 1">
+			  </label>
+			</div>
+		  </div>
+	  
+		  <div>
+			  <h3>Sleep:</h3>
+			  <div class="radio-container">
+				<label>
+				<input type="radio" name="sleep" value="1">
+				<img src="{% static 'img/sleep_icons/1.png' %}" alt="Steps 1">
+				</label>
+				
+				<label>
+				<input type="radio" name="sleep" value="2">
+				<img src="{% static 'img/sleep_icons/1.png' %}" alt="Steps 2">
+				</label>
+				
+				<label>
+				<input type="radio" name="sleep" value="3">
+				<img src="{% static 'img/sleep_icons/1.png' %}" alt="Steps 1">
+				</label>
+			  </div>
+			</div>
+	  
+			<div>
+			  <h3>Water:</h3>
+			  <div class="radio-container">
+				<label>
+				<input type="radio" name="water" value="1">
+				<img src="{% static 'img/water_icons/0.png' %}" alt="Water 1">
+				</label>
+				
+				<label>
+				<input type="radio" name="water" value="2">
+				<img src="{% static 'img/water_icons/1.png' %}" alt="Water 2">
+				</label>
+				
+				<label>
+				<input type="radio" name="water" value="3">
+				<img src="{% static 'img/water_icons/2.png' %}" alt="Water 1">
+				</label>
+			  </div>
+			</div>
+	  
+			<div>
+			  <h3>Screen Time:</h3>
+			  <div class="radio-container">
+				<label>
+				<input type="radio" name="screen_time" value="1">
+				<img src="{% static 'img/screentime_icons/0.png' %}" alt="screen time 1">
+				</label>
+				
+				<label>
+				<input type="radio" name="screen_time" value="2">
+				<img src="{% static 'img/screentime_icons/1.png' %}" alt="screen time 2">
+				</label>
+				
+				<label>
+				<input type="radio" name="screen_time" value="3">
+				<img src="{% static 'img/screentime_icons/2.png' %}" alt="screen time 1">
+				</label>
+			  </div>
+		  </div>
+		  <button type = "submit" width="3em" height="1em"> Submit </button>
+		</form>
+		<a class="return_home" width="3em" height="1em" href ="{% url 'home' %}"> Return home </a>
 </body>
 </html>
+

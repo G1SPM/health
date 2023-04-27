@@ -6,84 +6,68 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="square-megabox">
-      <div id="content_boxes">
-
-      </div>
-      <div class="position-centered" style="width: 30%">
-        <img src="img/raccoon/default.png" class="raccoon">
-        <div class="speech-dialog" style="width: 100%">
-          <span id="input_question">What have you been up to today?</span>
-          <br>
-          <span id="input_buttons_area"></span>
-          <form>
-            <span style="display: none">
-                <input type="text" name="selection" id="input_selection_textbox">
-            </span>
-            <button type="submit" class="button-standard">Submit</button>
-          </form>
-
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-      var contentBoxes = document.getElementById("content_boxes");
-
-      var inputCategories = ["mood", "exercise", "chill", "steps", "sleep", "water", "screentime"];
-      var inputCategoryTitles = ["Mood", "Exercise", "Chill", "Steps", "Sleep", "Water", "Screen time"];
-
-      var inputUserPrefs = [0, 0, 0, 0, 0, 0, 0];
-
-      document.getElementById("input_selection_textbox").value = inputUserPrefs.join(",");
-
-      inputCategories.forEach(function(category, index) {
-        const numberOfIcons = (category === "mood") ? 5 : 3;
-        const categoryDiv = document.createElement("DIV");
-        const categoryTitleDiv = document.createElement("DIV");
-        categoryTitleDiv.className = "speech-dialog speech-dialog-small";
-        categoryTitleDiv.innerText = inputCategoryTitles[index];
-        const categoryIconSpan = document.createElement("SPAN");
-        for(let i = 0; i < numberOfIcons; i++) {
-          const anchor = document.createElement("A");
-          const img = document.createElement("IMG");
-          img.src = "img/" + category + "_icons/" + i + ".png";
-          anchor.href = "javascript:void(0)";
-          anchor.className = (i === 0) ? "mood-button mood-button-selected" : "mood-button";
-          anchor.id = index + "_" + i;
-          anchor.onclick = function(e) {
-            inputClickHandler(index, i);
-          }
-          anchor.appendChild(img);
-          categoryIconSpan.appendChild(anchor);
+  <div class="content">
+    <img src="img/raccoon/default.png" class="raccoon">
+    <div class="speech-dialog">
+      <span id="input_question">How are you feeling today?</span>
+      <br>
+      <span id="input_buttons_area"></span>
+      <form method="post" action="{% url 'entry' %}">
+        {% csrf_token %}
+        <span style="display: none">
+            <input type="text" name="input_type" id="input_type_textbox">
+            <input type="text" name="selection" id="input_selection_textbox">
+        </span>
+        <button type="submit" class="button-standard" value="submit">Submit</button>
+      </form>
+      
+      <script type="text/javascript">
+        let questions_dict = {
+          "mood": "How are you feeling today?",
+          "chill": "How chill do you feel today?",
+          "screentime": "How would you rate your screen time today?",
+          "sleep": "How would you rate your sleep lately?",
+          "steps": "How would you rate your number of steps today?",
+          "exercise": "How much exercise did you have today?",
+          "water": "How much water did you have today?"
         }
-        
-        categoryIconSpan.style.margin = "auto";
 
-        categoryDiv.appendChild(categoryTitleDiv);
-        categoryDiv.appendChild(categoryIconSpan);
-        categoryDiv.style.position = "absolute";
+        // create the buttons
+        let input_dialog_type = "screentime";
+        // ^ Change this dynamically to change the type of input
 
-        /* Circular positioning */
-        const angle = ((2 * Math.PI) / 7) * index;
-        const radius = 500;
-        const positionX = 600 + (radius * Math.cos(angle)) - 100;
-        const positionY = 600 + (radius * Math.sin(angle)) - 50;
-        categoryDiv.style.left = Math.floor(positionX) + "px";
-        categoryDiv.style.top = Math.floor(positionY) + "px";
+        let img_directory = "img/" + input_dialog_type + "_icons/";
+        let input_button_count = input_dialog_type === "mood" ? 5 : 3;
 
-        /* */
+        let input_buttons_area = document.getElementById("input_buttons_area");
 
-        categoryDiv.className = "input-category-box";
-        contentBoxes.appendChild(categoryDiv);
-      });
+        let input_currently_selected = 0;
 
-      function inputClickHandler(catIndex, selIndex) {
-        //alert(catIndex + "," + selIndex);
-        document.getElementById(catIndex + "_" + inputUserPrefs[catIndex]).className = "mood-button";
-        inputUserPrefs[catIndex] = selIndex;
-        document.getElementById(catIndex + "_" + selIndex).className = "mood-button mood-button-selected";
-        document.getElementById("input_selection_textbox").value = inputUserPrefs.join(",");
-      }
-    </script>
+        document.getElementById("input_type_textbox").value = input_dialog_type;
+        document.getElementById("input_question").innerText = questions_dict[input_dialog_type];
+        document.getElementById("input_selection_textbox").value = 0;
+
+        for(let i = 0; i < input_button_count; i++) {
+          let img_path = img_directory + (i) + ".png";
+          let anchor = document.createElement("A");
+          anchor.href = "javascript:button_click_handler("+i+")";
+          anchor.className = "mood-button";
+          anchor.id = "input_anchor_"  + i;
+          let img = document.createElement("IMG");
+          img.src = img_path;
+          anchor.appendChild(img);
+          input_buttons_area.appendChild(anchor);
+        }
+
+        function button_click_handler(index) {
+          document.getElementById("input_selection_textbox").value = index;
+          document.getElementById("input_anchor_"+input_currently_selected).className = "mood-button";
+          document.getElementById("input_anchor_"+index).className = "mood-button mood-button-selected";
+          input_currently_selected = index;
+        }
+      </script>
+    </div>
+  </div>
+
 </body>
 </html>

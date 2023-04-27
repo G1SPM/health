@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Input</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class="square-megabox">
+      <div id="content_boxes">
+        <a type="button" style="background-color: white; padding: 1.5%; border: black solid; text-decoration: none;" href="{% url 'home' %}">Home</a>
+      </div>
+      <div class="position-centered" style="width: 30%">
+        <img src="{% static 'img/raccoon/default.png' %}" class="raccoon">
+        <div class="speech-dialog" style="width: 100%">
+          <span id="input_question">What have you been up to today?</span>
+          <br>
+          <span id="input_buttons_area"></span>
+          <form>
+            <span style="display: none">
+                <input type="text" name="selection" id="input_selection_textbox">
+            </span>
+            <button type="submit" class="button-standard">Submit</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var contentBoxes = document.getElementById("content_boxes");
+
+      var inputCategories = ["mood", "exercise", "chill", "steps", "sleep", "water", "screentime"];
+      var inputCategoryTitles = ["Mood", "Exercise", "Chill", "Steps", "Sleep", "Water", "Screen time"];
+
+      var inputUserPrefs = [0, 0, 0, 0, 0, 0, 0];
+
+      document.getElementById("input_selection_textbox").value = inputUserPrefs.join(",");
+
+      inputCategories.forEach(function(category, index) {
+        const numberOfIcons = (category === "mood") ? 5 : 3;
+        const categoryDiv = document.createElement("DIV");
+        const categoryTitleDiv = document.createElement("DIV");
+        categoryTitleDiv.className = "speech-dialog speech-dialog-small";
+        categoryTitleDiv.innerText = inputCategoryTitles[index];
+        const categoryIconSpan = document.createElement("SPAN");
+        
+        for(let i = 0; i < numberOfIcons; i++) {
+          const anchor = document.createElement("A");
+          const img = document.createElement("IMG");
+          //img.src = "img/" + category + "_icons/" + i + ".png";
+          const staticUrl = "{% static '' %}" + "img/" + category + "_icons/" + i + ".png";
+          img.src = staticUrl;
+
+          anchor.href = "javascript:void(0)";
+          anchor.className = (i === 0) ? "mood-button mood-button-selected" : "mood-button";
+          anchor.id = index + "_" + i;
+          anchor.onclick = function(e) {
+            inputClickHandler(index, i);
+          }
+          anchor.appendChild(img);
+          categoryIconSpan.appendChild(anchor);
+        }
+        
+        categoryIconSpan.style.margin = "auto";
+        categoryDiv.appendChild(categoryTitleDiv);
+        categoryDiv.appendChild(categoryIconSpan);
+        categoryDiv.style.position = "absolute";
+
+        /* Circular positioning */
+        const angle = ((2 * Math.PI) / 7) * index;
+        const radius = 500;
+        const positionX = 600 + (radius * Math.cos(angle)) - 100;
+        const positionY = 600 + (radius * Math.sin(angle)) - 50;
+        categoryDiv.style.left = Math.floor(positionX) + "px";
+        categoryDiv.style.top = Math.floor(positionY) + "px";
+
+        /* */
+
+        categoryDiv.className = "input-category-box";
+        contentBoxes.appendChild(categoryDiv);
+      });
+
+      function inputClickHandler(catIndex, selIndex) {
+        //alert(catIndex + "," + selIndex);
+        document.getElementById(catIndex + "_" + inputUserPrefs[catIndex]).className = "mood-button";
+        inputUserPrefs[catIndex] = selIndex;
+        document.getElementById(catIndex + "_" + selIndex).className = "mood-button mood-button-selected";
+        document.getElementById("input_selection_textbox").value = inputUserPrefs.join(",");
+      }
+    </script>
+</body>
+</html>
