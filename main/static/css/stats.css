@@ -1,0 +1,18 @@
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(235, 220, 248, 0.945);
+    flex-direction: column;
+}
+
+h1{
+    padding: 5%;
+    color:rgb(10, 229, 181);
+    font-size: 5em;
+}
+
+a{
+    float:right;
+    position:relative;
+}
